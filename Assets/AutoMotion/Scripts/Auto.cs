@@ -81,6 +81,29 @@ public static class Auto
 	{
 		return ScaleFrom(transform, target, duration, Ease.FromType(ease));
 	}
+
+    public static IEnumerator ScaleBy(this Transform transform, Vector3 scaleBy, float duration, Easer ease)
+    {
+        float elapsed = 0;
+        float previousCurvePos = 0;
+        float curvePos = 0;
+        while (elapsed < duration)
+        {
+            elapsed = Mathf.MoveTowards(elapsed, duration, Time.deltaTime);
+            curvePos = ease(elapsed / duration);
+            transform.localScale += scaleBy * (curvePos - previousCurvePos);
+            previousCurvePos = curvePos;
+            yield return null;
+        }
+    }
+    public static IEnumerator ScaleBy(this Transform transform, Vector3 scaleBy, float duration)
+    {
+        return ScaleBy(transform, scaleBy, duration, Ease.Linear);
+    }
+    public static IEnumerator ScaleBy(this Transform transform, Vector3 scaleBy, float duration, EaseType ease)
+    {
+        return ScaleBy(transform, scaleBy, duration, Ease.FromType(ease));
+    }
 	
 	public static IEnumerator RotateTo(this Transform transform, Quaternion target, float duration, Easer ease)
 	{
