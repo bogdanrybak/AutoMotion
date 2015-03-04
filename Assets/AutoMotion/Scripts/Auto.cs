@@ -17,7 +17,7 @@ public static class Auto
 		{
 			elapsed = Mathf.MoveTowards(elapsed, duration, Time.deltaTime);
 			transform.localPosition = start + range * ease(elapsed / duration);
-			yield return 0;
+			yield return null;
 		}
 		transform.localPosition = target;
 	}
@@ -54,7 +54,7 @@ public static class Auto
 		{
 			elapsed = Mathf.MoveTowards(elapsed, duration, Time.deltaTime);
 			transform.localScale = start + range * ease(elapsed / duration);
-			yield return 0;
+			yield return null;
 		}
 		transform.localScale = target;
 	}
@@ -113,7 +113,7 @@ public static class Auto
 		{
 			elapsed = Mathf.MoveTowards(elapsed, duration, Time.deltaTime);
 			transform.localRotation = Quaternion.Lerp(start, target, ease(elapsed / duration));
-			yield return 0;
+			yield return null;
 		}
 		transform.localRotation = target;
 	}
@@ -155,7 +155,7 @@ public static class Auto
 			position.y = start.y * (1 - t) * (1 - t) + control.y * 2 * (1 - t) * t + target.y * t * t;
 			position.z = start.z * (1 - t) * (1 - t) + control.z * 2 * (1 - t) * t + target.z * t * t;
 			transform.localPosition = position;
-			yield return 0;
+			yield return null;
 		}
 		transform.localPosition = target;
 	}
@@ -192,7 +192,7 @@ public static class Auto
 			duration -= Time.deltaTime;
 			shake.Set(Random.Range(-amount.x, amount.x), Random.Range(-amount.y, amount.y), Random.Range(-amount.z, amount.z));
 			transform.localPosition = start + shake;
-			yield return 0;
+			yield return null;
 		}
 		transform.localPosition = start;
 	}
@@ -210,14 +210,14 @@ public static class Auto
 		while (duration > 0)
 		{
 			duration -= Time.deltaTime;
-			yield return 0;
+			yield return null;
 		}
 	}
 
 	public static IEnumerator WaitUntil(Predicate predicate)
 	{
 		while (!predicate())
-			yield return 0;
+			yield return null;
 	}
 
 	#endregion
