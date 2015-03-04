@@ -281,6 +281,33 @@ public static class Auto
 	}
 
 	#endregion
+
+    #region Generic
+
+    public static IEnumerator Float(float start, float target, float duration, System.Action<float> setter, Easer ease)
+    {
+        float elapsed = 0;
+        var range = target - start;
+        while (elapsed < duration)
+        {
+            elapsed = Mathf.MoveTowards(elapsed, duration, Time.deltaTime);
+            setter(start + range * ease(elapsed / duration));
+            yield return null;
+        }
+        setter(target);
+    }
+
+    public static IEnumerator Float(float start, float target, float duration, System.Action<float> setter)
+    {
+        return Float(start, target, duration, setter, Ease.Linear);
+    }
+
+    public static IEnumerator Float(float start, float target, float duration, System.Action<float> setter, EaseType easeType)
+    {
+        return Float(start, target, duration, setter, Ease.FromType(easeType));
+    }
+
+    #endregion
 }
 
 #region Easing functions
